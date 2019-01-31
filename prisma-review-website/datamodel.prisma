@@ -1,0 +1,24 @@
+# SET_NULL (default) - CASCADE where types links to other types were user links to posts and user get links to comments post links to user ad post links to comments and comment links to autho and comment links to posts..
+#we dont want to keep posts and comments around if the user gets deleted therefore it cant be set to null and when we make a mutation to delete user we get an error , relation 
+#for review we want to set to null bcs we dont want to remove the book nor the author
+type Book {
+  id: ID! @unique
+  title: String!
+  author: String!
+  isbn: String!
+  reviews: [Review!]! @relation(name: "ReviewToBook" ,onDelete: CASCADE)
+}
+
+type User {
+  id: ID! @unique
+  username: String! @unique
+  reviews: [Review!]! @relation(name: "ReviewToUser", onDelete: CASCADE)
+}
+
+type Review {
+  id: ID! @unique
+  text: String!
+  rating: Int!
+  book: Book! @relation(name: "ReviewToBook", onDelete: SET_NULL)
+  author: User! @relation(name: "ReviewToUser", onDelete: SET_NULL)
+}
