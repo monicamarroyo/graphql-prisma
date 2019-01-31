@@ -9,7 +9,7 @@ const prisma = new Prisma ({
     endpoint: process.env.PRIMSA_ENDPOINT,
     //using this allows for authentication or permission in order to access prisma database
     //do not change this cause will fail its under primsa yml
-    secret: 'secrettext',
+    secret: process.env.PRISMA_SECRET,
     fragmentReplacements
     
 })
